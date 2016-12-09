@@ -142,6 +142,7 @@ getDropdownItemValue() {
   return dropdownItemValue;
 }
 
+addOnEvent("User/User/Select_User", "click", "dropdownItemValue = getFieldValue(\"User/User/Select_User\")");
 addOnEvent("Site/Tab/Test_Attrib", "click", "dropdownItemValue = getFieldValue(\"Site/Tab/Test_Attrib\")");
 
 /******************************************************************************/
@@ -309,13 +310,45 @@ updateGPSDiagnostics() {
 /*                                 USER LOGIN                                 */
 /******************************************************************************/
 
-// WARNING: This module is missing a login menu
-String userId    = "1";
-String nameFirst = "";
-String nameLast  = "";
-String email     = "";
-User   user      = new User(userId, nameFirst, nameLast, email);
-setUser(user);
+String userMenuPath = "User/User/Select_User";
+
+populateListForUsers(){
+  String getNonDeletedUsersQuery = "SELECT userid, fname || ' ' || lname "+
+                                   "  FROM user "+
+                                   " WHERE userdeleted is null;";
+
+  fetchAll(getNonDeletedUsersQuery, new FetchCallback() {
+    onFetch(result) {
+      populateDropDown(userMenuPath, result, true);
+    }
+  });
+}
+
+selectUser () {
+  String userVocabId  = getFieldValue(userMenuPath);
+  if (isNull(userVocabId))
+    return;
+
+  String userQ        = "SELECT userid,fname,lname,email FROM user " +
+                        "WHERE  userid='" + userVocabId + "';";
+  FetchCallback callback = new FetchCallback() {
+    onFetch(result) {
+      user = new User(
+            result.get(0),
+            result.get(1),
+            result.get(2),
+            result.get(3)
+      );
+      setUser(user);
+      username = result.get(1) + " " + result.get(2);
+    }
+  };
+
+  fetchOne(userQ, callback);
+}
+
+addOnEvent(userMenuPath, "show",  "populateListForUsers()");
+addOnEvent(userMenuPath, "click", "selectUser()");
 
 
 /******************************************************************************/
@@ -429,6 +462,7 @@ makeVocab(String type, String path, String attrib, List vocabExclusions, String 
     });
 }
 makeVocab("DropDown", "Site/Tab/Test_Attrib", "Test Attrib");
+makeVocab("List", "Site/Tab/Link_to_Child", "Link to Child");
 
 
 /******************************************************************************/
@@ -596,6 +630,10 @@ onShowSiteChild () {
 addOnEvent("Site", "show", "onShowSite()");
 addOnEvent("Site_Child", "show", "onShowSiteChild()");
 
+onClickUserLogin () {
+  // TODO: Add some things which should happen when this element is clicked
+  newSite();
+}
 onClickSiteLinktoChild () {
   // TODO: Add some things which should happen when this element is clicked
   String tabgroup = "Site";
@@ -607,6 +645,7 @@ onClickSiteLinktoChild () {
   newSiteChild();
 }
 
+addOnEvent("User/User/Login", "click", "onClickUserLogin()");
 addOnEvent("Site/Tab/Link_to_Child", "click", "onClickSiteLinktoChild()");
 
 
@@ -955,6 +994,7 @@ reallyDeleteSiteChild(){
 doNotDelete(){
   showToast("{Delete_Cancelled}");
 }
+addOnEvent("User", "show", "removeNavigationButtons()");
 addOnEvent("Site", "show", "addNavigationButtons(\"Site\")");
 addOnEvent("Site_Child", "show", "addNavigationButtons(\"Site_Child\")");
 

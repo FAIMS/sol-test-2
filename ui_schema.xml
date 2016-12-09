@@ -16,6 +16,12 @@
               <layout_weight/>
             </large>
           </style>
+          <User>
+            <User>
+              <Select_User/>
+              <Login/>
+            </User>
+          </User>
           <Site>
             <Tab>
               <Test_Attrib/>
@@ -53,6 +59,22 @@
         </input>
       </group>
     </group>
+    <group ref="User">
+      <label>{User}</label>
+      <group ref="User">
+        <label>{User}</label>
+        <select1 ref="Select_User">
+          <label>{Select_User}</label>
+          <item>
+            <label>Options not loaded</label>
+            <value>0</value>
+          </item>
+        </select1>
+        <trigger ref="Login">
+          <label>{Login}</label>
+        </trigger>
+      </group>
+    </group>
     <group ref="Site" faims_archent_type="Site">
       <label>{Site}</label>
       <group ref="Tab">
@@ -65,10 +87,13 @@
             <value>0</value>
           </item>
         </select1>
-        <input faims_attribute_type="measure" ref="Link_to_Child" faims_attribute_name="Link to Child">
+        <select1 appearance="compact" ref="Link_to_Child" faims_attribute_name="Link to Child">
           <label>{Link_to_Child}</label>
-          <!--WARNING: No type t was given for this view; assuming it is an input-->
-        </input>
+          <item>
+            <label>Options not loaded</label>
+            <value>0</value>
+          </item>
+        </select1>
       </group>
     </group>
     <group ref="Site_Child" faims_archent_type="Site Child">
