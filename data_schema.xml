@@ -1,0 +1,33 @@
+<?xml version="1.0"?>
+<dataSchema>
+  <RelationshipElement name="Site - Site Child" type="hierarchical" semanticMapURL="http://reln" semanticMapURLParent="http://relnParent" semanticMapURLChild="http://relnChild">
+    <description>A 1-to-n relationship between the parent and its children, respectively.</description>
+    <parent>Parent Of</parent>
+    <child>Child Of</child>
+  </RelationshipElement>
+  <ArchaeologicalElement name="Site" semanticMapURL="http://site">
+    <description/>
+    <property name="Test Attrib" isIdentifier="true" type="vocab" semanticMapURL="http://testAttrib">
+      <description/>
+      <formatString><![CDATA[{{if $1 then $1}}{{if and($1, $2) then " " }}{{if $2 then $2}}{{if $3 then " ($3)"}}{{if between($4,0,0.49) then "??" elsif lessThan($4,1) then "?" }}]]></formatString>
+      <appendCharacterString><![CDATA[ - ]]></appendCharacterString>
+      <lookup>
+        <term semanticMapURL="http://term">{Test_term}
+<description/></term>
+      </lookup>
+    </property>
+    <property name="Link to Child" type="measure" semanticMapURL="http://linktoChild">
+      <description/>
+      <formatString><![CDATA[{{if $1 then $1}}{{if and($1, $2) then " " }}{{if $2 then $2}}{{if $3 then " ($3)"}}{{if between($4,0,0.49) then "??" elsif lessThan($4,1) then "?" }}]]></formatString>
+      <appendCharacterString><![CDATA[ - ]]></appendCharacterString>
+    </property>
+  </ArchaeologicalElement>
+  <ArchaeologicalElement name="Site Child" semanticMapURL="http://siteChild">
+    <description/>
+    <property name="Site Child Attrib" isIdentifier="true" type="measure" semanticMapURL="http://siteChildattrib">
+      <description/>
+      <formatString><![CDATA[{{if $1 then $1}}{{if and($1, $2) then " " }}{{if $2 then $2}}{{if $3 then " ($3)"}}{{if between($4,0,0.49) then "??" elsif lessThan($4,1) then "?" }}]]></formatString>
+      <appendCharacterString><![CDATA[ - ]]></appendCharacterString>
+    </property>
+  </ArchaeologicalElement>
+</dataSchema>

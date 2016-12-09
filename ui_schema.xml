@@ -1,0 +1,85 @@
+<?xml version="1.0"?>
+<h:html xmlns:h="http://www.w3.org/1999/xhtml" xmlns="http://www.w3.org/2002/xforms" xmlns:ev="http://www.w3.org/2001/xml-events" xmlns:jr="http://openrosa.org/javarosa" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+  <h:head>
+    <h:title>Fill This In</h:title>
+    <model>
+      <instance>
+        <faims id="Fill_This_In">
+          <style>
+            <orientation>
+              <orientation/>
+            </orientation>
+            <even>
+              <layout_weight/>
+            </even>
+            <large>
+              <layout_weight/>
+            </large>
+          </style>
+          <Site>
+            <Tab>
+              <Test_Attrib/>
+              <Link_to_Child/>
+            </Tab>
+          </Site>
+          <Site_Child>
+            <Tab>
+              <Site_Child_Attrib/>
+            </Tab>
+          </Site_Child>
+        </faims>
+      </instance>
+    </model>
+  </h:head>
+  <h:body>
+    <group ref="style">
+      <label/>
+      <group ref="orientation">
+        <label/>
+        <input ref="orientation">
+          <label>horizontal</label>
+        </input>
+      </group>
+      <group ref="even">
+        <label/>
+        <input ref="layout_weight">
+          <label>1</label>
+        </input>
+      </group>
+      <group ref="large">
+        <label/>
+        <input ref="layout_weight">
+          <label>3</label>
+        </input>
+      </group>
+    </group>
+    <group ref="Site" faims_archent_type="Site">
+      <label>{Site}</label>
+      <group ref="Tab">
+        <label>{Tab}</label>
+        <select1 faims_attribute_type="vocab" ref="Test_Attrib" faims_attribute_name="Test Attrib">
+          <label>{Test_Attrib}</label>
+          <!--WARNING: No type t was given for this view; assuming it is a dropdown-->
+          <item>
+            <label>Options not loaded</label>
+            <value>0</value>
+          </item>
+        </select1>
+        <input faims_attribute_type="measure" ref="Link_to_Child" faims_attribute_name="Link to Child">
+          <label>{Link_to_Child}</label>
+          <!--WARNING: No type t was given for this view; assuming it is an input-->
+        </input>
+      </group>
+    </group>
+    <group ref="Site_Child" faims_archent_type="Site Child">
+      <label>{Site_Child}</label>
+      <group ref="Tab">
+        <label>{Tab}</label>
+        <input faims_attribute_type="measure" ref="Site_Child_Attrib" faims_attribute_name="Site Child Attrib">
+          <label>{Site_Child_Attrib}</label>
+          <!--WARNING: No type t was given for this view; assuming it is an input-->
+        </input>
+      </group>
+    </group>
+  </h:body>
+</h:html>
